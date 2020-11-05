@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <title>Stock management</title>
+    
+</head>
+<style>
+    body{
+            background: linear-gradient(135deg, rgba(0,142,184,1) 0%, rgba(46,84,185,1) 98%);
+    }
+    #container{
+        margin: auto;
+        margin-top: 50px;
+        width:450px;
+        height:500px;
+        background-color: white;
+        text-align: center;
+    }
+
+</style>
+<body>
+    <div id="container">
+    <h2>
+        Stock management
+    </h2>
+    <h3 id="dev">
+        Siddharth Raj Dash - 18BCE0347
+    </h3>
+
+
+
+
+    
+    <br>
+    <br>
+    <main>
+        <form id="ded" method="POST" action="#">
+            <label>
+                <div>
+                    Enter bill quantity
+                </div>
+                <div>
+                    <label>pencil amount</label>
+                    <input type="number" id="pencil" style="height:20px;"required /><br><br>
+                    <label>pen amount</label>
+                    <input type="number" id="pen" style="height:20px;"required /><br><br>
+                    <label>eraser amount</label>
+                    <input type="number" id="eraser" style="height:20px;"required /><br><br>
+                    
+                </div><br>
+                <div>
+                    <button type="submit" style="background: linear-gradient(135deg, rgba(33,136,65,1) 0%, rgba(46,84,185,1) 98%);outline:none;border:0px;height: 30px;color: white; ">Deduct Amount</button>
+                </div>
+            </label>
+        </form>
+            <h2>bill information</h2>
+        <br>
+  <table style="width:100%">
+  <tr>
+    <th>billno</th>
+    <th>penstock</th>
+    <th>pencilstock</th>
+    <th>eraserstock</th>
+
+    
+  </tr>
+  <tr>
+    <td id="billno">Loading...</td>
+    <td id="penstock">Loading... </td>
+    <td id="pencilstock">Loading...</td>
+    <td id="eraserstock">Loading... </td>
+    
+  </tr>
+</table>
+    </main>
+
+</div>
+    <script>
+        var billid="101";
+        function loadData() {
+            var user = {
+                billid: billid
+            };
+            user = JSON.stringify(user);
+            fetch('http://localhost:5555/balance', {
+                method: "POST", body: user, headers: {
+                    'Content-Type': 'application/json'
+                    
+                },
+            })
+                .then((response) => {
+                    return response.json();
+                })
+                .then(data => {
+                    document.getElementById('billno').innerText = data.billno;
+                    document.getElementById('penstock').innerText = data.penstock;
+                    document.getElementById('pencilstock').innerText = data.pencilstock;
+                    document.getElementById('eraserstock').innerText = data.eraserstock;
+                })
+                .catch(err => console.log(err));
+        }
+
+        document.getElementById('ded').addEventListener('submit', e => {
+            e.preventDefault();
+
+            var user = {
+                billid:billid,
+                pen: document.getElementById('pen').value,
+                pencil: document.getElementById('pencil').value,
+                eraser: document.getElementById('eraser').value
+            };
+            user = JSON.stringify(user);
+            fetch('http://localhost:5555/deduct', {
+                method: "POST", body: user, headers: {
+                    'Content-Type': 'application/json'
+                    
+                },
+            })
+                .then((response) => {
+                    return response.json();
+                })
+                .then(data => {
+                    document.getElementById('billno').innerText = data.billno;
+                    document.getElementById('penstock').innerText = data.penstock;
+                    document.getElementById('pencilstock').innerText = data.pencilstock;
+                    document.getElementById('eraserstock').innerText = data.eraserstock;
+                })
+                .catch(err => console.log(err));
+        });
+
+        loadData();
+    </script>
+</body>
+
+</html>

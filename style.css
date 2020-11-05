@@ -1,0 +1,27 @@
+body{
+		display: block;
+		padding-top: 40px;
+		text-align: center;
+		background-image:url('G:/cricket-grnd.png');
+	}
+.content{
+
+		font-family: montserrat;	
+		box-sizing: border-box;
+		margin: auto;
+		background: white;
+		width:500px;
+		height:600px;
+		padding-top: 20px;
+		text-align: center;
+		border-radius: 40px;
+		box-shadow: 8px 8px 20px #555;
+		padding:60px;
+		padding-top: 30px;
+		text-align: center;
+		text-align: justify;
+	}
+	img{
+		width:100%;
+
+	}
